@@ -6,6 +6,7 @@ import helmet from 'helmet'
 import config from './config/config'
 import connectDB from './connections/connectDB'
 import { errorHandler } from './middleware/errorMiddleware'
+import authRouter from './routes/authRouter'
 
 interface UserInfo {
   _id: string
@@ -25,7 +26,7 @@ const app = Express()
 
 connectDB()
 
-app.use(helmet)
+app.use(helmet())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser())
@@ -35,6 +36,8 @@ app.use(
     origin: 'http://localhost:3000'
   })
 )
+
+app.use(authRouter)
 
 app.use(errorHandler)
 
