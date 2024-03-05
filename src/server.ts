@@ -8,6 +8,7 @@ import connectDB from './connections/connectDB'
 import { errorHandler } from './middleware/errorMiddleware'
 import authRouter from './routes/authRouter'
 import productRouter from './routes/productRouter'
+import saleRouter from './routes/saleRouter'
 
 interface UserInfo {
   _id: string
@@ -40,6 +41,7 @@ app.use(
 
 app.use(authRouter)
 app.use(productRouter)
+app.use(saleRouter)
 
 app.use(errorHandler)
 

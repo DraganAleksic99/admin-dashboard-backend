@@ -18,6 +18,6 @@ router
   .delete(deleteProducts)
 
 router.put('/products/:productId', upload.single('image'), updateProduct)
-router.route('/product/image/:productId').get(getPhoto)
+router.get('/product/image/:productId', getPhoto)
 
 export default router
