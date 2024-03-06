@@ -1,6 +1,6 @@
-import { model, Schema, Document } from 'mongoose'
+import { model, Schema } from 'mongoose'
 
-export interface ISale extends Document {
+export interface ISale {
   name: string
   data: number[]
 }

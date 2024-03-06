@@ -1,25 +1,25 @@
-import { Schema, Document, model } from 'mongoose'
+import { Schema, model } from 'mongoose'
 
-interface IProduct extends Document {
+export interface IProduct {
   name: string
-  description: string
+  description?: string
   category: string
   price: number
-  salePrice: number
+  salePrice?: number
   quantity: number
-  image: {
-    data: Buffer
+  image?: {
+    data: Buffer | null
     contentType: string
   }
   taxSettings: {
-    includesTaxes: boolean
-    isTaxable: boolean
+    includesTaxes?: boolean
+    isTaxable?: boolean
   }
   productSku: string
   createdAt: Date
-  updatedAt: Date
-  imageName: string
-  imageSize: string
+  updatedAt?: Date
+  imageName?: string
+  imageSize?: string
 }
 
 const productSchema = new Schema<IProduct>({

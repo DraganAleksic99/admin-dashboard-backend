@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
 import Product from '../models/Product'
+import { IProduct } from '../models/Product'
 
 const getProducts = async (req: Request, res: Response) => {
   try {
@@ -11,7 +12,7 @@ const getProducts = async (req: Request, res: Response) => {
 }
 
 const createProduct = async (req: Request, res: Response) => {
-  let product = req.body
+  let product: IProduct = req.body
 
   if (!product) {
     return res.status(400).json({ message: 'Product information missing' })
@@ -36,7 +37,7 @@ const createProduct = async (req: Request, res: Response) => {
 }
 
 const updateProduct = async (req: Request, res: Response) => {
-  const newProduct = req.body
+  const newProduct: IProduct = req.body
   const { productId } = req.params
 
   if (!newProduct) {
@@ -79,7 +80,7 @@ const updateProduct = async (req: Request, res: Response) => {
 }
 
 const deleteProducts = async (req: Request, res: Response) => {
-  const productsToDelete = req.body
+  const productsToDelete: string[] = req.body
 
   if (!productsToDelete) {
     return res.status(400).json({ message: 'Products information missing' })
@@ -99,13 +100,17 @@ const getPhoto = async (req: Request, res: Response) => {
   try {
     const product = await Product.findById(productId, 'image').exec()
 
-    if (product?.image.data) {
+    if (!product) {
+      return res.status(400).json({ message: 'Could not find product' })
+    }
+
+    if (product.image?.data) {
       res.set('Cross-Origin-Resource-Policy', 'false')
       res.set('Content-Type', product.image.contentType)
-      return res.send(product.image.data)
+      res.send(product.image.data)
     }
   } catch (err) {
-    return res.status(400).json({ meessage: 'Could  not find product' })
+    res.status(500).json({ meessage: 'Something went wrong' })
   }
 }
 

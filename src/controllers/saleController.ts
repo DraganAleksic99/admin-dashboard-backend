@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import Sale from '../models/Sale'
+import Sale, { ISale } from '../models/Sale'
 
 const getSales = async (req: Request, res: Response) => {
   try {
@@ -11,7 +11,7 @@ const getSales = async (req: Request, res: Response) => {
 }
 
 const createSale = async (req: Request, res: Response) => {
-  const sale = req.body
+  const sale: ISale = req.body
 
   if (!sale) {
     return res.status(400).json({ message: 'Sale information missing' })
