@@ -40,7 +40,7 @@ const loginUser = async (req: Request, res: Response) => {
     return res.status(400).json({ message: 'Email or password is missing' })
   }
 
-  const user = await User.findOne({ email })
+  const user = await User.findOne({ email }).exec()
 
   if (!user) {
     return res.status(400).json({ message: 'User with this email does not exist' })
@@ -50,9 +50,10 @@ const loginUser = async (req: Request, res: Response) => {
     return res.status(400).json({ message: 'The password you provided is incorrect' })
   }
 
-  const token = generateJWT(user)
+  //@ts-expect-error: dont store sensitive info in jwt
+  delete user.password
 
-  user.password = ''
+  const token = generateJWT(user)
 
   return res.status(200).json({ user, token })
 }

@@ -70,7 +70,7 @@ const updateProduct = async (req: Request, res: Response) => {
       updatedProduct.imageSize = ''
     }
 
-    await Product.findByIdAndUpdate(productId, updatedProduct)
+    await Product.updateOne({ _id: productId }, updatedProduct)
 
     res.status(201).json({ message: 'Product updated' })
   } catch (e: any) {

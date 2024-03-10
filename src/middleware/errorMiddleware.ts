@@ -1,6 +1,6 @@
-import { Request, Response, NextFunction } from 'express'
+import { Request, Response } from 'express'
 
-const errorHandler = (err: Error, req: Request, res: Response, next: NextFunction) => {
+const errorHandler = (err: Error, _req: Request, res: Response) => {
   console.error(err.stack)
   if (err instanceof AuthenticationError) {
     res.status(401).json({ message: 'Unauthorized: ' + err.message })

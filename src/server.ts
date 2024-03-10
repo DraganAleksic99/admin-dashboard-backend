@@ -9,6 +9,8 @@ import { errorHandler } from './middleware/errorMiddleware'
 import authRouter from './routes/authRouter'
 import productRouter from './routes/productRouter'
 import saleRouter from './routes/saleRouter'
+import eventRouter from './routes/eventRouter'
+import { authenticate } from './middleware/authMiddleware'
 
 interface UserInfo {
   _id: string
@@ -40,8 +42,12 @@ app.use(
 )
 
 app.use(authRouter)
+
+app.use(authenticate)
+
 app.use(productRouter)
 app.use(saleRouter)
+app.use(eventRouter)
 
 app.use(errorHandler)
 
