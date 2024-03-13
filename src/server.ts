@@ -11,6 +11,7 @@ import productRouter from './routes/productRouter'
 import saleRouter from './routes/saleRouter'
 import eventRouter from './routes/eventRouter'
 import { authenticate } from './middleware/authMiddleware'
+import userRouter from './routes/userRouter'
 
 interface UserInfo {
   _id: string
@@ -48,6 +49,7 @@ app.use(authenticate)
 app.use(productRouter)
 app.use(saleRouter)
 app.use(eventRouter)
+app.use(userRouter)
 
 app.use(errorHandler)
 
