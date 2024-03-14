@@ -35,10 +35,20 @@ app.use(helmet())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser())
+
 app.use(
   cors({
     credentials: true,
-    origin: 'http://localhost:3000'
+    origin: function (origin, callback) {
+      const allowedOrigins = ['http://localhost:3000', 'https://my-admin-dashboard-app.netlify.app']
+      if (origin) {
+        if (allowedOrigins.includes(origin)) {
+          callback(null, true)
+        } else {
+          callback(new Error('Not allowed by CORS'))
+        }
+      }
+    }
   })
 )
 
