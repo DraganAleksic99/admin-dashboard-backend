@@ -8,6 +8,9 @@ Web server built with Express.js and MongoDB
 git clone https://github.com/DraganAleksic99/admin-dashboard-backend.git  
 cd admin-dashboard-backend
 
+## Copy the example .env file
+cp .env.example .env
+
 ## Install dependencies
 npm install
 
